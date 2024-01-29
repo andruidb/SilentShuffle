@@ -1,0 +1,10 @@
+## Interface: 100200
+## Title: SilentShuffle
+## Notes: Turns off chat when entering Solo Shuffle
+## Version: 1.0
+## Author: Arwsb
+## X-Curse-Project-ID: 
+## X-Category: Battlegrounds/PvP, Chat/Communication
+
+#Called files
+SilentShuffle.lua
