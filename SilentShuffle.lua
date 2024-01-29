@@ -10,3 +10,15 @@ print("Silent Shuffle version".. versionNumber.. "loaded!")
 -- * When leaving Solo Shuffle, the enable chat command should be executed
 -- * Messages need to indicate successful execution of each state
 -- * Option to turn off the addon functions in game with a toggle command/UI box
+
+-- Create Addon Panel
+
+local silentShufflePanel = ...
+
+silentShufflePanel = {}
+
+silentShufflePanel.panel = CreateFrame("Frame", "SilentShufflePanel", UIParent);
+silentShufflePanel.panel.name = "SilentShufflePanel";
+InterfaceOptions_AddCategory(silentShufflePanel.panel);
+
+
