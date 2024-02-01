@@ -1,5 +1,5 @@
-## Interface: 100200
-## Title: SilentShuffle
+## Interface: 100205
+## Title: |cff00ff88Silent Shuffle|r
 ## Notes: Turns off chat when entering Solo Shuffle
 ## Version: 1.0
 ## Author: Arwsb
