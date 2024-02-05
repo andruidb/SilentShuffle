@@ -133,6 +133,8 @@
         "GetPlayerFactionGroup",
         "PLAYER",
         "UnitFrameHealthBar_OnUpdate",
-        "UnitFrameHealthBar_OnValueChanged"
+        "UnitFrameHealthBar_OnValueChanged",
+        "StaticPopupDialogs",
+        "StaticPopup_Show"
     ]
 }
