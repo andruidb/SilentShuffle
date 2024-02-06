@@ -135,6 +135,27 @@
         "UnitFrameHealthBar_OnUpdate",
         "UnitFrameHealthBar_OnValueChanged",
         "StaticPopupDialogs",
-        "StaticPopup_Show"
+        "StaticPopup_Show",
+        "hash_SlashCmdList",
+        "SELECTED_CHAT_FRAME",
+        "NORMAL_FONT_COLOR",
+        "GameFontNormal",
+        "GameFontHighlight",
+        "ACCEPT",
+        "CANCEL",
+        "Settings",
+        "GameFontHighlightLarge",
+        "GameFontHighlightSmall",
+        "ReloadUI",
+        "ColorPickerFrame",
+        "OpacitySliderFrame",
+        "SetDesaturation",
+        "CLOSE",
+        "ChatFontNormal",
+        "GameFontDisableSmall",
+        "GameFontNormalSmall",
+        "FONT_COLOR_CODE_CLOSE",
+        "OKAY",
+        "NOT_BOUND"
     ]
 }
