@@ -26,8 +26,13 @@ jobs:
       git commit -m "Silent Shuffle v$(major).$(patch)"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
       # Configure GitHub credentials
       # git remote set-url origin https://$(github_user_name):$(github_token)@github.com/andruidb/SilentShuffle.git
+=======
+       # Configure GitHub credentials
+      git remote set-url origin https://$(github_user_name):$(github_token)@github.com/andruidb/SilentShuffle.git
+>>>>>>> 2f2105f (Github push)
 =======
        # Configure GitHub credentials
       git remote set-url origin https://$(github_user_name):$(github_token)@github.com/andruidb/SilentShuffle.git
