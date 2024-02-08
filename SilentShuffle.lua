@@ -3,6 +3,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 --Initial Version on 29 January 2024
 
 -- Initialization
@@ -35,6 +36,8 @@ InterfaceOptions_AddCategory(silentShufflePanel.panel);
 >>>>>>> 47e40e5 (GOOD Update pkgmeta.yaml for Azure Pipelines)
 =======
 >>>>>>> 47e40e5 (GOOD Update pkgmeta.yaml for Azure Pipelines)
+=======
+>>>>>>> 1ffaf6f (Update pkgmeta.yaml for Azure Pipelines)
 -- Initialization
 local addonName = "SilentShuffle"
 local silentShuffleTitle = "|cff00ff88Silent Shuffle|r"
@@ -142,6 +145,7 @@ end)
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 61903d7 (Update pkgmeta.yaml for Azure Pipelines)
 =======
 >>>>>>> 61903d7 (Update pkgmeta.yaml for Azure Pipelines)
@@ -151,4 +155,6 @@ end)
 >>>>>>> 47e40e5 (GOOD Update pkgmeta.yaml for Azure Pipelines)
 =======
 >>>>>>> 47e40e5 (GOOD Update pkgmeta.yaml for Azure Pipelines)
+=======
+>>>>>>> 1ffaf6f (Update pkgmeta.yaml for Azure Pipelines)
 

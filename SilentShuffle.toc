@@ -3,6 +3,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 ## Interface: 100200
 ## Title: SilentShuffle
 =======
@@ -25,6 +26,10 @@
 ## Interface: 100205
 ## Title: |cff00ff88Silent Shuffle|r
 >>>>>>> 47e40e5 (GOOD Update pkgmeta.yaml for Azure Pipelines)
+=======
+## Interface: 100205
+## Title: |cff00ff88Silent Shuffle|r
+>>>>>>> 1ffaf6f (Update pkgmeta.yaml for Azure Pipelines)
 ## Notes: Turns off chat when entering Solo Shuffle
 ## Version: 1.0
 ## Author: Arwsb
