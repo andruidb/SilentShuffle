@@ -18,8 +18,8 @@ jobs:
       git config user.email "$(github_user_email)"
       git config user.name "$(github_user_name)"
       git fetch dev:dev
-      git checkout -b main origin/main
-      git pull origin main
+      # git pull origin dev
+      git checkout origin/main
       git merge --no-ff dev
       git add .
       git commit -m "Silent Shuffle v$(major).$(patch)"
