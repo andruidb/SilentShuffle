@@ -26,5 +26,5 @@ jobs:
         # git pull origin main
       git add .
       git commit -m "Silent Shuffle v$(major).$(patch)"
-        git push https://$(github_token)@github.com/andruidb/SilentShuffle.git
+        git push https://$(github_token)@github.com/andruidb/SilentShuffle.git HEAD:main
     displayName: 'Merge dev into main and Push to GitHub'
