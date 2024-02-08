@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 trigger:
 - dev
 
@@ -31,6 +32,8 @@ jobs:
       git push origin HEAD:main
     displayName: 'Merge dev into main and Push to GitHub'
 =======
+=======
+>>>>>>> 47e40e5 (GOOD Update pkgmeta.yaml for Azure Pipelines)
 trigger:
 - dev
 
@@ -61,5 +64,9 @@ jobs:
       # git remote set-url origin https://$(github_user_name):$(github_token)@github.com/andruidb/SilentShuffle.git
 
       git push origin HEAD:main
+<<<<<<< HEAD
+    displayName: 'Merge dev into main and Push to GitHub'
+>>>>>>> 47e40e5 (GOOD Update pkgmeta.yaml for Azure Pipelines)
+=======
     displayName: 'Merge dev into main and Push to GitHub'
 >>>>>>> 47e40e5 (GOOD Update pkgmeta.yaml for Azure Pipelines)
