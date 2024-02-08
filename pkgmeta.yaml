@@ -18,6 +18,6 @@ jobs:
       git merge --no-ff dev
       git add .
       git commit -m "Silent Shuffle v$(major).$(patch)"
-      git push https://$(github_token)@github.com/your_username/your_repository.git HEAD:main
+      git push https://$(github_token)@github.com/andruidb/SilentShuffle.git HEAD:main
       git push self HEAD:main
     displayName: 'Merge dev into main and Push to GitHub'
