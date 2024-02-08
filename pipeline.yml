@@ -15,16 +15,17 @@ jobs:
   - checkout: self
     persistCredentials: true
   - script: | 
+      git pull origin/dev
       git clone https://github.com/andruidb/SilentShuffle.git
       git config --global user.email "$(github_user_email)"
       git config --global user.name "$(github_user_name)"
        # Configure GitHub credentials
         # git remote set-url origin https://$(github_token)@github.com/andruidb/SilentShuffle.git
-      git checkout main
+      git checkout origin/main
         # git config pull.rebase true
         # git checkout -b main
         # git pull origin main
       git add .
       git commit -m "Silent Shuffle v$(major).$(patch)"
-        git push https://$(github_token)@github.com/andruidb/SilentShuffle.git HEAD:main
+      git push https://$(github_token)@github.com/andruidb/SilentShuffle.git HEAD:main
     displayName: 'Merge dev into main and Push to GitHub'
