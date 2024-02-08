@@ -23,5 +23,6 @@ jobs:
       git merge --no-ff dev  # Merge changes from dev into main
       git add .
       git commit -m "Silent Shuffle v$(major).$(patch)"
+      git pull github main --rebase  # Pull changes from GitHub's main branch and rebase local changes
       git push github HEAD:main  # Push changes to GitHub's main branch
     displayName: 'Merge dev into main and Push to GitHub'
