@@ -45,6 +45,7 @@ luac.out
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> 61903d7 (Update pkgmeta.yaml for Azure Pipelines)
@@ -54,6 +55,8 @@ luac.out
 >>>>>>> 47e40e5 (GOOD Update pkgmeta.yaml for Azure Pipelines)
 =======
 >>>>>>> 47e40e5 (GOOD Update pkgmeta.yaml for Azure Pipelines)
+=======
+>>>>>>> 1ffaf6f (Update pkgmeta.yaml for Azure Pipelines)
 =======
 >>>>>>> 1ffaf6f (Update pkgmeta.yaml for Azure Pipelines)
 # Hidden .vscode folder and settings.json
@@ -67,6 +70,7 @@ luac.out
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 *.png
 >>>>>>> 61903d7 (Update pkgmeta.yaml for Azure Pipelines)
 =======
@@ -81,6 +85,9 @@ luac.out
 =======
 *.png
 >>>>>>> 47e40e5 (GOOD Update pkgmeta.yaml for Azure Pipelines)
+=======
+*.png
+>>>>>>> 1ffaf6f (Update pkgmeta.yaml for Azure Pipelines)
 =======
 *.png
 >>>>>>> 1ffaf6f (Update pkgmeta.yaml for Azure Pipelines)

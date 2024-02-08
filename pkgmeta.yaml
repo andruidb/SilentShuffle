@@ -1,6 +1,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 trigger:
 - dev
 
@@ -37,6 +38,8 @@ jobs:
 >>>>>>> 47e40e5 (GOOD Update pkgmeta.yaml for Azure Pipelines)
 =======
 >>>>>>> 1ffaf6f (Update pkgmeta.yaml for Azure Pipelines)
+=======
+>>>>>>> 1ffaf6f (Update pkgmeta.yaml for Azure Pipelines)
 trigger:
 - dev
 
@@ -57,6 +60,10 @@ jobs:
       git config user.email "$(github_user_email)"
       git config user.name "$(github_user_name)"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+      git pull origin dev
+>>>>>>> 1ffaf6f (Update pkgmeta.yaml for Azure Pipelines)
 =======
       git pull origin dev
 >>>>>>> 1ffaf6f (Update pkgmeta.yaml for Azure Pipelines)
@@ -73,11 +80,15 @@ jobs:
       git push origin HEAD:main
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     displayName: 'Merge dev into main and Push to GitHub'
 >>>>>>> 47e40e5 (GOOD Update pkgmeta.yaml for Azure Pipelines)
 =======
     displayName: 'Merge dev into main and Push to GitHub'
 >>>>>>> 47e40e5 (GOOD Update pkgmeta.yaml for Azure Pipelines)
+=======
+    displayName: 'Merge dev into main and Push to GitHub'
+>>>>>>> 1ffaf6f (Update pkgmeta.yaml for Azure Pipelines)
 =======
     displayName: 'Merge dev into main and Push to GitHub'
 >>>>>>> 1ffaf6f (Update pkgmeta.yaml for Azure Pipelines)
