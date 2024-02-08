@@ -25,8 +25,8 @@ jobs:
       git add .
       git commit -m "Silent Shuffle v$(major).$(patch)"
 
-      # Configure GitHub credentials
-      # git remote set-url origin https://$(github_user_name):$(github_token)@github.com/andruidb/SilentShuffle.git
+       # Configure GitHub credentials
+      git remote set-url origin https://$(github_user_name):$(github_token)@github.com/andruidb/SilentShuffle.git
 
       git push origin HEAD:main
     displayName: 'Merge dev into main and Push to GitHub'
