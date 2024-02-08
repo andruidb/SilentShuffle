@@ -26,7 +26,11 @@ jobs:
       git commit -m "Silent Shuffle v$(major).$(patch)"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
       # Add Manual Intervention Step
+=======
+       # Add Manual Intervention Step
+>>>>>>> 66a6043 (Manual Intervention)
 =======
        # Add Manual Intervention Step
 >>>>>>> 66a6043 (Manual Intervention)
