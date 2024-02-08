@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 -- Initialization
 local addonName = "SilentShuffle"
 local silentShuffleTitle = "|cff00ff88Silent Shuffle|r"
@@ -8,6 +9,8 @@ local AddonVersion = GetAddOnMetadata(addonName, "Version")
 local setChatDisabled = C_SocialRestrictions.SetChatDisabled
 local IsRatedSoloShuffle = C_PvP.IsRatedSoloShuffle
 =======
+=======
+>>>>>>> 5d63701 (Merge Conflict handling)
 =======
 >>>>>>> 5d63701 (Merge Conflict handling)
 -- Load AceAddon, AceConsole, AceEvent, AceGUI, and AceConfig libraries
@@ -31,7 +34,10 @@ local IsRatedSoloShuffle = C_PvP.IsRatedSoloShuffle
 
 -- Variables for instance checking
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 420de1d (Merge branch LOCAL 'Ace3' into dev)
+=======
+>>>>>>> 5d63701 (Merge Conflict handling)
 =======
 >>>>>>> 5d63701 (Merge Conflict handling)
 local IsInInstance = IsInInstance
@@ -40,6 +46,7 @@ local IsInInstance = IsInInstance
 local welcomeMsg = "%s: Silent Shuffle version |cff00e5ff%s|r loaded successfully"
 print(string.format(welcomeMsg, silentShuffleTitle, AddonVersion))
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 -- Event handler function
@@ -134,6 +141,8 @@ silentShufflePanel.panel:HookScript("OnShow", function(self)
 end)
 
 =======
+=======
+>>>>>>> 5d63701 (Merge Conflict handling)
 =======
 >>>>>>> 5d63701 (Merge Conflict handling)
 -- Function to handle enabling the addon
@@ -245,8 +254,12 @@ function SilentShuffle:EventHandler()
         self.currentInstanceType = currentInstanceType
     --end
 <<<<<<< HEAD
+<<<<<<< HEAD
 end
 >>>>>>> 420de1d (Merge branch LOCAL 'Ace3' into dev)
+=======
+end
+>>>>>>> 5d63701 (Merge Conflict handling)
 =======
 end
 >>>>>>> 5d63701 (Merge Conflict handling)
