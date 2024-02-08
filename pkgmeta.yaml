@@ -27,10 +27,13 @@ jobs:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
      
 =======
 =======
 >>>>>>> 5a1780f (azure pipeline ignore)
+=======
+>>>>>>> 48934d8 (Update pipeline.yml for Azure Pipelines)
 =======
 >>>>>>> 48934d8 (Update pipeline.yml for Azure Pipelines)
 
@@ -44,9 +47,12 @@ jobs:
       
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> c5faad4 (Merge branch 'dev' of https://dev.azure.com/andrassubahome/Test/_git/SilentShuffle into dev)
 =======
 >>>>>>> 5a1780f (azure pipeline ignore)
+=======
+>>>>>>> 48934d8 (Update pipeline.yml for Azure Pipelines)
 =======
 >>>>>>> 48934d8 (Update pipeline.yml for Azure Pipelines)
       # Configure GitHub credentials

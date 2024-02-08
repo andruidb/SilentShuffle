@@ -19,6 +19,7 @@ jobs:
       git config user.name "$(github_user_name)"
       git pull origin dev
 <<<<<<< HEAD
+<<<<<<< HEAD
       git config pull.rebase false
       git checkout -b main
       git pull origin main
@@ -29,6 +30,8 @@ jobs:
         # Configure GitHub credentials
         # git remote set-url origin https://$(github_user_name):$(github_token)@github.com/andruidb/SilentShuffle.git
 =======
+=======
+>>>>>>> 48934d8 (Update pipeline.yml for Azure Pipelines)
       git config pull.rebase true
       git checkout -b main
       git pull origin main
@@ -38,6 +41,9 @@ jobs:
 
       # Configure GitHub credentials
       # git remote set-url origin https://$(github_user_name):$(github_token)@github.com/andruidb/SilentShuffle.git
+<<<<<<< HEAD
+>>>>>>> 48934d8 (Update pipeline.yml for Azure Pipelines)
+=======
 >>>>>>> 48934d8 (Update pipeline.yml for Azure Pipelines)
 
       git push origin HEAD:main
