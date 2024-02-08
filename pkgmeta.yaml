@@ -25,7 +25,11 @@ jobs:
       git add .
       git commit -m "Silent Shuffle v$(major).$(patch)"
 
+<<<<<<< HEAD
       # Add Manual Intervention Step
+=======
+       # Add Manual Intervention Step
+>>>>>>> 66a6043 (Manual Intervention)
       - task: ManualIntervention@1
         inputs:
           instructions: 'Resolve merge conflicts and continue.'
