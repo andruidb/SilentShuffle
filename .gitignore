@@ -41,9 +41,12 @@ luac.out
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> 61903d7 (Update pkgmeta.yaml for Azure Pipelines)
+=======
+>>>>>>> 36b6627 (Merged PR 4: Revert "Update pkgmeta.yaml for Azure Pipelines")
 # Hidden .vscode folder and settings.json
 **/.vscode/
 
@@ -51,8 +54,12 @@ luac.out
 *.jpeg
 *.jpg
 <<<<<<< HEAD
+<<<<<<< HEAD
 *.png
 >>>>>>> 61903d7 (Update pkgmeta.yaml for Azure Pipelines)
 =======
 *.png
 >>>>>>> 61903d7 (Update pkgmeta.yaml for Azure Pipelines)
+=======
+*.png
+>>>>>>> 36b6627 (Merged PR 4: Revert "Update pkgmeta.yaml for Azure Pipelines")

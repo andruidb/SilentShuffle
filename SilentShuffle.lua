@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 --Initial Version on 29 January 2024
 
 -- Initialization
@@ -26,6 +27,8 @@ InterfaceOptions_AddCategory(silentShufflePanel.panel);
 =======
 =======
 >>>>>>> 61903d7 (Update pkgmeta.yaml for Azure Pipelines)
+=======
+>>>>>>> 36b6627 (Merged PR 4: Revert "Update pkgmeta.yaml for Azure Pipelines")
 -- Initialization
 local addonName = "SilentShuffle"
 local silentShuffleTitle = "|cff00ff88Silent Shuffle|r"
@@ -130,7 +133,10 @@ silentShufflePanel.panel:HookScript("OnShow", function(self)
     eventFrame:UpdateCheckboxState()
 end)
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 61903d7 (Update pkgmeta.yaml for Azure Pipelines)
 =======
 >>>>>>> 61903d7 (Update pkgmeta.yaml for Azure Pipelines)
+=======
+>>>>>>> 36b6627 (Merged PR 4: Revert "Update pkgmeta.yaml for Azure Pipelines")
 
