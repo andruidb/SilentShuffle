@@ -14,8 +14,6 @@ jobs:
   steps:
   - checkout: self
   - script: |
-      git config --global user.email "you@example.com"
-      git config --global user.name "Your Name"
       git checkout -b main
       git merge --no-ff dev
       git add .
