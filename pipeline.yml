@@ -17,16 +17,19 @@ jobs:
   - script: |
       git config user.email "$(github_user_email)"
       git config user.name "$(github_user_name)"
-        # git pull origin dev
+      git pull origin dev
+       # Configure GitHub credentials
+      git remote set-url origin https://$(github_token)@github.com/andruidb/SilentShuffle.git
+      git checkout origin main
+      git pull origin main
         # git config pull.rebase true
         # git checkout -b main
         # git pull origin main
-        # git merge dev
+      git merge dev
       git add .
       git commit -m "Silent Shuffle v$(major).$(patch)"
 
-       # Configure GitHub credentials
-      git remote set-url origin https://$(github_token)@github.com/andruidb/SilentShuffle.git
+      
 
       git push origin HEAD:main
     displayName: 'Merge dev into main and Push to GitHub'
