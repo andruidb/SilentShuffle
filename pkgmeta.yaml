@@ -25,6 +25,14 @@ jobs:
       git add .
       git commit -m "Silent Shuffle v$(major).$(patch)"
 
+      # Add Manual Intervention Step
+      - task: ManualIntervention@1
+        inputs:
+          instructions: 'Resolve merge conflicts and continue.'
+          notifyUsers: |
+            $(devops_user_email)
+            $(github_user_email)
+      
       # Configure GitHub credentials
       # git remote set-url origin https://$(github_user_name):$(github_token)@github.com/andruidb/SilentShuffle.git
 
