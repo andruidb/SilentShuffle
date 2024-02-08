@@ -14,6 +14,7 @@ local AddonVersion = C_AddOns.GetAddOnMetadata("SilentShuffle", "Version")
 
 -- Variables for chat control
 local setChatDisabled = C_SocialRestrictions.SetChatDisabled
+local IsChatDisabled = C_SocialRestrictions.IsChatDisabled
 local IsRatedSoloShuffle = C_PvP.IsRatedSoloShuffle
 
 -- Variables for instance checking
@@ -35,9 +36,10 @@ end
 
 -- Function to handle arena join
 function SilentShuffle:OnArenaJoin()
+    print(SilentShuffle..": Joined Arena, Checking if it's Shuffle")
     if IsRatedSoloShuffle() == false then
         return
-    elseif self.db.profile.enabled then
+    else 
         setChatDisabled(true)
         print(silentShuffleTitle .. ": In Shuffle - Chat Disabled")
     end
@@ -45,9 +47,10 @@ end
 
 -- Function to handle arena leave
 function SilentShuffle:OnArenaLeave()
+    print(SilentShuffle..": Left Arena, Checking if was Shuffle")
     if IsRatedSoloShuffle() == false then
         return
-    elseif self.db.profile.enabled then
+    else
         setChatDisabled(false)
         print(silentShuffleTitle .. ": Not in Shuffle - Chat Enabled")
     end
@@ -105,17 +108,28 @@ function SilentShuffle:SetConfigHandler()
 end
 
 -- Event handler function
-function SilentShuffle:EventHandler(_, event, ...)
+function SilentShuffle:EventHandler()
     local _, currentInstanceType = IsInInstance()
-    if event == "ZONE_CHANGED_NEW_AREA" then
-        if self.db.profile.enabled then
+    print("shit")
+    
+    -- Chat is force enabled if the enable checkbox is ticked in when entering a new area
+    --if event == "ZONE_CHANGED_NEW_AREA" then
+        print(silentShuffleTitle..": Zone changed.. Checking profile enabled and chat disabled status")
+
+        if self.db.profile.enabled and not IsChatDisabled() then
+            setChatDisabled(true)
+            print(silentShuffleTitle..": Chat was disabled in Options while was enabled in AddOns. Don't do this again :P")
             if currentInstanceType == "arena" then
                 self:OnArenaJoin()
             elseif currentInstanceType ~= "arena" and self.currentInstanceType == "arena" then
                 self:OnArenaLeave()
             end
+        -- Chat is force disabled if the enable checkbox is not ticked in when entering a new area
+        elseif not self.db.profile.enabled and IsChatDisabled() then
+            setChatDisabled(false) 
+            print(silentShuffleTitle.. ": Chat was enabled in Options while was disabled in AddOns. Don't do this again :P")
         end
 
         self.currentInstanceType = currentInstanceType
-    end
+    --end
 end

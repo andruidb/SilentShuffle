@@ -1,6 +1,7 @@
 ## Interface: 100205
 ## Title: |cff00ff88Silent Shuffle|r
 ## Notes: Turns off chat when entering Solo Shuffle
+## IconTexture: 135975
 ## Version: 1.0
 ## Author: Arwsb
 ## SavedVariables: SilentShuffleDB
