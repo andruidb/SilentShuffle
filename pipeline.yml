@@ -5,8 +5,8 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  major: 1
-  patch: $[counter('patch', 1)]
+  major: 0
+  patch: $[counter('patch', 0)]
 
 jobs:
 - job: MergeAndPush
