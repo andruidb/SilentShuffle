@@ -21,7 +21,7 @@ jobs:
       git config pull.rebase false
       git checkout -b main
       git pull origin main
-      git merge --no-ff dev
+      git merge --no-ff origin dev
       git add .
       git commit -m "Silent Shuffle v$(major).$(patch)"
 
