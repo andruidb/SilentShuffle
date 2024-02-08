@@ -17,9 +17,9 @@ jobs:
   - script: |
       git config user.email "$(github_user_email)"
       git config user.name "$(github_user_name)"
-      git config pull.rebase true
-      git checkout -b main
-      git pull origin main
+      git checkout dev
+      git pull origin dev
+      git checkout main
       git merge --no-ff dev
       git add .
       git commit -m "Silent Shuffle v$(major).$(patch)"
