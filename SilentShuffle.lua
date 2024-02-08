@@ -126,7 +126,11 @@ function SilentShuffle:EventHandler()
             end
         -- Chat is force disabled if the enable checkbox is not ticked in when entering a new area
         elseif not self.db.profile.enabled then
+<<<<<<< HEAD
             print(silentShuffleTitle..": Returning")
+=======
+            print(silentShuffleTitle..": You disabled the addon from the menu")
+>>>>>>> 9eb2a08 (Merged PR 10: Addon disable extra message)
             return
         end
 
