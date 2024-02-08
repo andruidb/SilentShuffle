@@ -39,3 +39,13 @@ luac.out
 *.x86_64
 *.hex
 
+<<<<<<< HEAD
+=======
+# Hidden .vscode folder and settings.json
+**/.vscode/
+
+# Images
+*.jpeg
+*.jpg
+*.png
+>>>>>>> 61903d7 (Update pkgmeta.yaml for Azure Pipelines)
