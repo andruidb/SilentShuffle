@@ -25,8 +25,11 @@ jobs:
       git add .
       git commit -m "Silent Shuffle v$(major).$(patch)"
 <<<<<<< HEAD
+<<<<<<< HEAD
      
 =======
+=======
+>>>>>>> 5a1780f (azure pipeline ignore)
 
        # Add Manual Intervention Step
       - task: ManualIntervention@1
@@ -36,7 +39,10 @@ jobs:
             $(devops_user_email)
             $(github_user_email)
       
+<<<<<<< HEAD
 >>>>>>> c5faad4 (Merge branch 'dev' of https://dev.azure.com/andrassubahome/Test/_git/SilentShuffle into dev)
+=======
+>>>>>>> 5a1780f (azure pipeline ignore)
       # Configure GitHub credentials
       # git remote set-url origin https://$(github_user_name):$(github_token)@github.com/andruidb/SilentShuffle.git
 

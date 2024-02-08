@@ -46,3 +46,9 @@ luac.out
 *.jpeg
 *.jpg
 *.png
+<<<<<<< HEAD
+=======
+
+# Azure Pipeline
+pipeline.yml
+>>>>>>> 5a1780f (azure pipeline ignore)
