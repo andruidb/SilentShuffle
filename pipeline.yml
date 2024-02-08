@@ -22,6 +22,8 @@ jobs:
       git checkout -b main  # Create and switch to a new local branch named 'main'
       git merge --no-ff dev  # Merge changes from dev into main
       git add .
+      # Remove pipeline.yml before committing
+      rm pipeline.yml
       git commit -m "Silent Shuffle v$(major).$(patch)"
       git pull github main --rebase  # Pull changes from GitHub's main branch and rebase local changes
       git push github HEAD:main  # Push changes to GitHub's main branch
