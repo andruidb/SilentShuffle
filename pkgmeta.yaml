@@ -17,6 +17,7 @@ jobs:
   - script: |
       git config user.email "$(github_user_email)"
       git config user.name "$(github_user_name)"
+      git pull dev
       git config pull.rebase false
       git checkout -b main
       git pull origin main
