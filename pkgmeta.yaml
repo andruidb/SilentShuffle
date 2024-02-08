@@ -10,22 +10,36 @@ variables:
 
 jobs:
 - job: MergeAndPush
-  displayName: 'Merge dev into main and Push to GitHub'
+  displayName: 'Merge dev into main and Push to GitHub and Azure Repos'
   steps:
   - checkout: self
     persistCredentials: true
+    clean: true
+
   - script: |
       git config user.email "$(github_user_email)"
       git config user.name "$(github_user_name)"
-      git config pull.rebase true
-      git checkout -b main
-      git pull origin main
-      git merge --no-ff dev
+      
+      # Switch to the 'dev' branch
+      git checkout dev
+
+      # Pull the latest changes from the remote 'dev' branch
+      git pull origin dev
+
+      # Switch to the 'main' branch
+      git checkout main
+
+      # Merge the changes from 'dev' into 'main'
+      git merge dev
+
+      # Commit the changes
       git add .
       git commit -m "Silent Shuffle v$(major).$(patch)"
 
-      # Configure GitHub credentials
-      # git remote set-url origin https://$(github_user_name):$(github_token)@github.com/andruidb/SilentShuffle.git
+      # Push the changes to GitHub
+      # git push https://$(github_token)@github.com/andruidb/SilentShuffle.git HEAD:main
 
-      git push origin HEAD:main
-    displayName: 'Merge dev into main and Push to GitHub'
+      # Push the changes to Azure Repos
+      git push self HEAD:main
+
+    displayName: 'Merge dev into main and Push to GitHub and Azure Repos'
