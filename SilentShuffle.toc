@@ -1,6 +1,11 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 ## Interface: 100200
 ## Title: SilentShuffle
+=======
+## Interface: 100205
+## Title: |cff00ff88Silent Shuffle|r
+>>>>>>> 61903d7 (Update pkgmeta.yaml for Azure Pipelines)
 =======
 ## Interface: 100205
 ## Title: |cff00ff88Silent Shuffle|r
