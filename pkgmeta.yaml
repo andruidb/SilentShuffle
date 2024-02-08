@@ -13,6 +13,7 @@ jobs:
   displayName: 'Merge dev into main and Push to GitHub'
   steps:
   - checkout: self
+    persistCredentials: true
   - script: |
       git config user.email "$(github_user_email)"
       git config user.name "$(github_user_name)"
