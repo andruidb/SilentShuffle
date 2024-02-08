@@ -3,10 +3,10 @@
 ## Notes: Turns off chat when entering Solo Shuffle
 ## IconTexture: 135975
 ## Version: 1.0
-## Author: Arwsb
+## Author: Andruid
 ## SavedVariables: SilentShuffleDB
-## X-Curse-Project-ID: 
-## X-Category: Battlegrounds/PvP, Chat/Communication
+## X-Curse-Project-ID: 972185
+## X-Category: Arena/PvP, Chat/Communication
 
 
 #Called files

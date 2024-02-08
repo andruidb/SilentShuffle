@@ -41,3 +41,8 @@ luac.out
 
 # Hidden .vscode folder and settings.json
 **/.vscode/
+
+# Images
+*.jpeg
+*.jpg
+*.png
