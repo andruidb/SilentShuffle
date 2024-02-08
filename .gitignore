@@ -49,11 +49,17 @@ luac.out
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 # Azure Pipeline
 pipeline.yml
 >>>>>>> 5a1780f (azure pipeline ignore)
+=======
+
+# Azure Pipeline
+pipeline.yml
+>>>>>>> 48934d8 (Update pipeline.yml for Azure Pipelines)
 =======
 
 # Azure Pipeline

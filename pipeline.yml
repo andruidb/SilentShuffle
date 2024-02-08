@@ -1,0 +1,32 @@
+trigger:
+- dev
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  major: 1
+  patch: $[counter('patch', 1)]
+
+jobs:
+- job: MergeAndPush
+  displayName: 'Merge dev into main and Push to GitHub'
+  steps:
+  - checkout: self
+    persistCredentials: true
+  - script: |
+      git config user.email "$(github_user_email)"
+      git config user.name "$(github_user_name)"
+      git pull origin dev
+      git config pull.rebase true
+      git checkout -b main
+      git pull origin main
+      git merge dev
+      git add .
+      git commit -m "Silent Shuffle v$(major).$(patch)"
+
+      # Configure GitHub credentials
+      # git remote set-url origin https://$(github_user_name):$(github_token)@github.com/andruidb/SilentShuffle.git
+
+      git push origin HEAD:main
+    displayName: 'Merge dev into main and Push to GitHub'
