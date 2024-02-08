@@ -14,6 +14,8 @@ jobs:
   steps:
   - checkout: self
   - script: |
+      git config user.email "$(github_user_email)"
+      git config user.name "$(github_user_name)"
       git checkout -b main
       git merge --no-ff dev
       git add .
