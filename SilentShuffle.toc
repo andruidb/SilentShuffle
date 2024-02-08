@@ -1,21 +1,6 @@
 ## Interface: 100205
 ## Title: |cff00ff88Silent Shuffle|r
 ## Notes: Turns off chat when entering Solo Shuffle
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-## Version: 1.0
-## Author: Arwsb
-## X-Curse-Project-ID: 
-## X-Category: Battlegrounds/PvP, Chat/Communication
-
-#Called files
-SilentShuffle.lua
-=======
-=======
->>>>>>> 5d63701 (Merge Conflict handling)
-=======
->>>>>>> 5d63701 (Merge Conflict handling)
 ## IconTexture: 135975
 ## Version: 1.0
 ## Author: Andruid
@@ -33,13 +18,4 @@ Libs\AceEvent-3.0\AceEvent-3.0.lua
 Libs\AceGUI-3.0\AceGUI-3.0.lua
 Libs\AceConfig-3.0\AceConfig-3.0.lua
 Libs\AceConfigDialog-3.0\AceConfigDialog-3.0.lua
-<<<<<<< HEAD
-<<<<<<< HEAD
 Libs\AceDB-3.0\AceDB-3.0.lua
->>>>>>> 420de1d (Merge branch LOCAL 'Ace3' into dev)
-=======
-Libs\AceDB-3.0\AceDB-3.0.lua
->>>>>>> 5d63701 (Merge Conflict handling)
-=======
-Libs\AceDB-3.0\AceDB-3.0.lua
->>>>>>> 5d63701 (Merge Conflict handling)
