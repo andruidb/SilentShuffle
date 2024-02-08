@@ -1,31 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
---Initial Version on 29 January 2024
-
--- Initialization
-local versionNumber = "|cff00e5ff 1.0 |r"
-
-print("Silent Shuffle version".. versionNumber.. "loaded!")
-
---To be Implemented
--- * When entering Solo Shuffle, the disable chat command should be executed
--- * When leaving Solo Shuffle, the enable chat command should be executed
--- * Messages need to indicate successful execution of each state
--- * Option to turn off the addon functions in game with a toggle command/UI box
-
--- Create Addon Panel
-
-local silentShufflePanel = ...
-
-silentShufflePanel = {}
-
-silentShufflePanel.panel = CreateFrame("Frame", "SilentShufflePanel", UIParent);
-silentShufflePanel.panel.name = "SilentShufflePanel";
-InterfaceOptions_AddCategory(silentShufflePanel.panel);
-
-=======
-=======
->>>>>>> 61903d7 (Update pkgmeta.yaml for Azure Pipelines)
 -- Initialization
 local addonName = "SilentShuffle"
 local silentShuffleTitle = "|cff00ff88Silent Shuffle|r"
@@ -129,8 +101,4 @@ end
 silentShufflePanel.panel:HookScript("OnShow", function(self)
     eventFrame:UpdateCheckboxState()
 end)
-<<<<<<< HEAD
->>>>>>> 61903d7 (Update pkgmeta.yaml for Azure Pipelines)
-=======
->>>>>>> 61903d7 (Update pkgmeta.yaml for Azure Pipelines)
 
