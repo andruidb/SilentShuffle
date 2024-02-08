@@ -116,8 +116,8 @@ function SilentShuffle:EventHandler()
     --if event == "ZONE_CHANGED_NEW_AREA" then
         print(silentShuffleTitle..": Zone changed.. Checking profile enabled and chat disabled status")
 
-        if self.db.profile.enabled and not IsChatDisabled() then
-            setChatDisabled(true)
+        if self.db.profile.enabled and IsChatDisabled() then
+            setChatDisabled(false)
             print(silentShuffleTitle..": Chat was disabled in Options while was enabled in AddOns. Don't do this again :P")
             if currentInstanceType == "arena" then
                 self:OnArenaJoin()
@@ -125,9 +125,9 @@ function SilentShuffle:EventHandler()
                 self:OnArenaLeave()
             end
         -- Chat is force disabled if the enable checkbox is not ticked in when entering a new area
-        elseif not self.db.profile.enabled and IsChatDisabled() then
-            setChatDisabled(false) 
-            print(silentShuffleTitle.. ": Chat was enabled in Options while was disabled in AddOns. Don't do this again :P")
+        elseif not self.db.profile.enabled then
+            print(silentShuffleTitle..": Returning")
+            return
         end
 
         self.currentInstanceType = currentInstanceType
