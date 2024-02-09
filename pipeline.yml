@@ -6,7 +6,9 @@ pool:
 
 variables:
   major: 1
-  patch: $[counter('patch', 1)]
+  minor: 0
+  patch_version_no: $[counter(format('{0}.{1}', variables.major, variables.minor), 1)]
+
 
 jobs:
 - job: MergeAndPush
@@ -15,28 +17,17 @@ jobs:
   - checkout: self
     persistCredentials: true
   - script: |
+      git pull origin dev  # Pull changes from dev branch
       git config user.email "$(github_user_email)"
       git config user.name "$(github_user_name)"
-      git pull origin dev
-      git config pull.rebase true
-      git checkout -b main
-      git pull origin main
-      git merge dev
+      git remote add github https://$(github_token)@github.com/andruidb/SilentShuffle.git
+      git checkout -b main  # Create and switch to a new local branch named 'main'
+      git merge --no-ff dev  # Merge changes from dev into main
+      git tag -a $(patch_version_no) -m "Version $(patch_version_no)"
       git add .
-      git commit -m "Silent Shuffle v$(major).$(patch)"
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-      # Configure GitHub credentials
-      # git remote set-url origin https://$(github_user_name):$(github_token)@github.com/andruidb/SilentShuffle.git
-=======
-       # Configure GitHub credentials
-      git remote set-url origin https://$(github_user_name):$(github_token)@github.com/andruidb/SilentShuffle.git
->>>>>>> 2f2105f (Github push)
-=======
-       # Configure GitHub credentials
-      git remote set-url origin https://$(github_user_name):$(github_token)@github.com/andruidb/SilentShuffle.git
->>>>>>> 2f2105f (Github push)
-
-      git push origin HEAD:main
+      # Remove pipeline.yml before committing
+      git rm pipeline.yml
+      git commit -m "Silent Shuffle v$(patch_version_no)"
+      git pull github main --rebase  # Pull changes from GitHub's main branch and rebase local changes
+      git push github HEAD:main  # Push changes to GitHub's main branch
     displayName: 'Merge dev into main and Push to GitHub'
