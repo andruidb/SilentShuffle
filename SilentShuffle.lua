@@ -110,7 +110,6 @@ end
 -- Event handler function
 function SilentShuffle:EventHandler()
     local _, currentInstanceType = IsInInstance()
-    print("shit")
     
     -- Chat is force enabled if the enable checkbox is ticked in when entering a new area
     --if event == "ZONE_CHANGED_NEW_AREA" then
