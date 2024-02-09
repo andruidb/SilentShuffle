@@ -7,7 +7,7 @@ pool:
 variables:
   major: 1
   minor: 0
-  patch_version_no: $[counter(format('{0}.{1}', variables['major'], variables['minor']), 1)]
+  patch_version_no: $[counter(format('{0}.{1}', variables.major, variables.minor), 1)]
 
 
 jobs:
