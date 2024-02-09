@@ -9,6 +9,7 @@ variables:
   minor: 0
   patch_version_no: $[counter(format('{0}.{1}', variables['major'], variables['minor']), 1)]
 
+
 jobs:
 - job: MergeAndPush
   displayName: 'Merge dev into main and Push to GitHub'
@@ -19,18 +20,12 @@ jobs:
       git pull origin dev  # Pull changes from dev branch
       git config user.email "$(github_user_email)"
       git config user.name "$(github_user_name)"
+      git remote add github https://$(github_token)@github.com/andruidb/SilentShuffle.git
       git checkout -b main  # Create and switch to a new local branch named 'main'
       git merge --no-ff dev  # Merge changes from dev into main
-      
-      # Increment patch version based on the counter
-      git config --global user.email "$(github_user_email)"
-      git config --global user.name "$(github_user_name)"
-      git config --global user.name "$(github_user_name)"
       git tag -a $(patch_version_no) -m "Version $(patch_version_no)"
-
       git add .
-      git commit -m "Silent Shuffle v.$(patch_version_no)"
-      
-      # Push changes along with tags to GitHub's main branch
-      git push origin HEAD:main --tags
+      git commit -m "Silent Shuffle v$(patch_version_no)"
+      git pull github main --rebase  # Pull changes from GitHub's main branch and rebase local changes
+      git push github HEAD:main  # Push changes to GitHub's main branch
     displayName: 'Merge dev into main and Push to GitHub'
