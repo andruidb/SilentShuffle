@@ -16,6 +16,7 @@ local AddonVersion = C_AddOns.GetAddOnMetadata("SilentShuffle", "Version")
 local setChatDisabled = C_SocialRestrictions.SetChatDisabled
 local IsChatDisabled = C_SocialRestrictions.IsChatDisabled
 local IsRatedSoloShuffle = C_PvP.IsRatedSoloShuffle
+local chatSettingsMemory
 
 -- Variables for instance checking
 local IsInInstance = IsInInstance
@@ -34,25 +35,36 @@ function SilentShuffle:DisableAddon()
     print(silentShuffleTitle .. ": Addon Disabled")
 end
 
+-- Function to log debug messages
+function SilentShuffle:DebugLog(message)
+    if self.db.profile.debug then
+        print(silentShuffleTitle .. ": " .. message)
+    end
+end
+
 -- Function to handle arena join
 function SilentShuffle:OnArenaJoin()
-    print(SilentShuffle..": Joined Arena, Checking if it's Shuffle")
+    self:DebugLog("Joined Arena, Checking if it's Shuffle")
     if IsRatedSoloShuffle() == false then
         return
     else 
-        setChatDisabled(true)
-        print(silentShuffleTitle .. ": In Shuffle - Chat Disabled")
+        if IsChatDisabled() == true and chatSettingsMemory == true then
+            print(silentShuffleTitle .. ": In Shuffle - Chat was already Disabled")
+        else
+            setChatDisabled(true)
+            print(silentShuffleTitle .. ": In Shuffle - Chat Disabled")
+        end
     end
 end
 
 -- Function to handle arena leave
 function SilentShuffle:OnArenaLeave()
-    print(SilentShuffle..": Left Arena, Checking if was Shuffle")
-    if IsRatedSoloShuffle() == false then
+    self:DebugLog("Left Arena, Checking if was Shuffle")
+    if IsRatedSoloShuffle() == true then
         return
     else
-        setChatDisabled(false)
-        print(silentShuffleTitle .. ": Not in Shuffle - Chat Enabled")
+        setChatDisabled(chatSettingsMemory)
+        print(silentShuffleTitle .. ": Not in Shuffle - Chat restored to previous settings")
     end
 end
 
@@ -75,33 +87,62 @@ function SilentShuffle:OnInitialize()
         self.db.profile.enabled = true
     end
 
+     chatSettingsMemory = IsChatDisabled()
+
     print(silentShuffleTitle .. ": Initialized")
+
+    if self.db.profile.enabled then
+        print(silentShuffleTitle..": Addon Enabled")
+    elseif not self.db.profile.enabled then
+        print(silentShuffleTitle..": Addon Disabled")
+    end
 
     -- Register events
     self:RegisterEvent("ZONE_CHANGED_NEW_AREA", "EventHandler")
 end
 
 -- Set up the configuration handler for AceConfig
+-- Function to set up the configuration handler for AceConfig
 function SilentShuffle:SetConfigHandler()
     local options = {
         type = "group",
+        name = "Silent Shuffle",
+        inline = true,
         args = {
-            enable = {
-                type = "toggle",
-                name = "Enable Silent Shuffle",
-                desc = "Enable or disable Silent Shuffle",
-                get = function() return self.db.profile.enabled end,
-                set = function(_, val)
-                    self.db.profile.enabled = val
-                    if val then
-                        self:EnableAddon()
-                    else
-                        self:DisableAddon()
-                    end
-                end,
+            mainGroup = {
+                type = "group",
+                name = silentShuffleTitle,
+                args = {
+                    enable = {
+                        type = "toggle",
+                        name = "Enable Silent Shuffle",
+                        desc = "Enable or disable Silent Shuffle",
+                        get = function() return self.db.profile.enabled end,
+                        set = function(_, val)
+                            self.db.profile.enabled = val
+                            if val then
+                                self:EnableAddon()
+                            else
+                                self:DisableAddon()
+                            end
+                        end,
+                        order = 1,
+                    },
+                        debug = {
+                            type = "toggle",
+                            name = "Enable Debug",
+                            desc = "Enable or disable debug messages",
+                            get = function() return self.db.profile.debug end,
+                            set = function(_, val)
+                                self.db.profile.debug = val
+                            end,
+                            order = 2,
+                        },
+                            -- Add more debug options if needed
+                    },
+                },
             },
-        },
-    }
+        }
 
     AceConfig:RegisterOptionsTable("SilentShuffle", options)
     AceConfigDialog:AddToBlizOptions("SilentShuffle", "Silent Shuffle")
@@ -110,25 +151,23 @@ end
 -- Event handler function
 function SilentShuffle:EventHandler()
     local _, currentInstanceType = IsInInstance()
-    
-    -- Chat is force enabled if the enable checkbox is ticked in when entering a new area
-    --if event == "ZONE_CHANGED_NEW_AREA" then
-        print(silentShuffleTitle..": Zone changed.. Checking profile enabled and chat disabled status")
-
-        if self.db.profile.enabled and IsChatDisabled() then
-            setChatDisabled(false)
-            print(silentShuffleTitle..": Chat was disabled in Options while was enabled in AddOns. Don't do this again :P")
-            if currentInstanceType == "arena" then
-                self:OnArenaJoin()
-            elseif currentInstanceType ~= "arena" and self.currentInstanceType == "arena" then
-                self:OnArenaLeave()
-            end
-        -- Chat is force disabled if the enable checkbox is not ticked in when entering a new area
-        elseif not self.db.profile.enabled then
-            print(silentShuffleTitle..": You disabled the addon from the menu")
-            return
+    if not self.db.profile.enabled then
+        self:DebugLog(silentShuffleTitle..": You disabled the addon from the menu ")
+         return
+    end
+    self:DebugLog("Zone Changed..")        
+    if self.db.profile.enabled then
+        if currentInstanceType == "arena" then
+            self:DebugLog(currentInstanceType)
+            self:OnArenaJoin()
+         elseif currentInstanceType ~= "arena" and self.currentInstanceType == "arena" then
+            self:DebugLog("self.currentInstanceType Before leaving arena updating: "..self.currentInstanceType.." vs. currentInstanceType "..currentInstanceType)
+            self:DebugLog("leaving arena instance")
+            self:OnArenaLeave()
+        elseif currentInstanceType == "none" then
+            self:DebugLog("Current Instance Type is "..currentInstanceType)
         end
-
-        self.currentInstanceType = currentInstanceType
-    --end
+    end
+    self.currentInstanceType = currentInstanceType
+    self:DebugLog("self.currentInstanceType After updating: "..self.currentInstanceType.." vs. currentInstanceType "..currentInstanceType)
 end
