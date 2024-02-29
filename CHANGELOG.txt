@@ -1,0 +1,8 @@
+Update on v1.0.1 beta release:
+
+    - Added support for Skirmish and Rated Arena
+    - Consolidated messages visible in the game chat frame
+
+
+Future developments:
+    - Profile management
