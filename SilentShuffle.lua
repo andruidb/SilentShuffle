@@ -20,8 +20,8 @@ local IsRatedArena = C_PvP.IsRatedArena
 local IsSkirmish = C_PvP.IsArena
 
 local chatSettingsMemory
-local enableRatedArena
-local enableSkirmish
+enableRatedArena = ...
+enableSkirmish = ...
 
 
 -- Variables for instance checking
@@ -56,13 +56,58 @@ function GetLastMatchType()
     return lastMatchType
 end
 
+function SilentShuffle:ArenaJoinType(matchType)
+    if IsChatDisabled() == true and chatSettingsMemory == true then
+        print(silentShuffleTitle .. ": In "..matchType.." - Chat was already Disabled")
+    else
+        setChatDisabled(true)
+        print(silentShuffleTitle .. ": In "..matchType.." - Chat Disabled")
+    end
+    self:DebugLog("Last Match Type is ".. matchType)
+end
+
 -- Function to handle arena join
 function SilentShuffle:OnArenaJoin()
+    local lastMatch
     self:DebugLog("Joined Arena, Checking if it's Shuffle")
-    if not IsRatedSoloShuffle() and not IsRatedArena and not IsSkirmish then
+    if not (IsRatedSoloShuffle() or IsRatedArena() or IsSkirmish()) then
         self:DebugLog("Protecting conditions not met")
+        self:DebugLog("IsRatedArena(): " .. tostring(IsRatedArena()))
+        self:DebugLog("self.db.profile.enableRatedArena: " .. tostring(self.db.profile.enableRatedArena))
+        self:DebugLog("IsSkirmish(): " .. tostring(IsSkirmish()))
+        self:DebugLog("self.db.profile.enableSkirmish: " .. tostring(self.db.profile.enableSkirmish))
+        self:DebugLog("IsSoloShuffle(): ".. tostring(IsRatedSoloShuffle()))
         return
     end
+
+    if IsRatedSoloShuffle() then
+        SetLastMatchType("Solo Shuffle")
+    elseif IsRatedArena() and self.db.profile.enableRatedArena then
+        SetLastMatchType("Rated Arena")
+    elseif IsSkirmish() and self.db.profile.enableSkirmish and not IsRatedArena() then
+        SetLastMatchType("Skirmish Arena")
+    end
+
+    lastMatch = GetLastMatchType()
+    if lastMatch == nil then
+        self:DebugLog("lastMatch is NIL")
+        self:DebugLog("IsRatedArena(): " .. tostring(IsRatedArena()))
+        self:DebugLog("self.db.profile.enableRatedArena: " .. tostring(self.db.profile.enableRatedArena))
+        self:DebugLog("IsSkirmish(): " .. tostring(IsSkirmish()))
+        self:DebugLog("self.db.profile.enableSkirmish: " .. tostring(self.db.profile.enableSkirmish))
+        return
+    else
+    self:ArenaJoinType(lastMatch)
+    end
+
+     -- Print additional debug information
+     self:DebugLog("IsRatedArena(): " .. tostring(IsRatedArena()))
+     self:DebugLog("self.db.profile.enableRatedArena: " .. tostring(self.db.profile.enableRatedArena))
+     self:DebugLog("IsSkirmish(): " .. tostring(IsSkirmish()))
+     self:DebugLog("self.db.profile.enableSkirmish: " .. tostring(self.db.profile.enableSkirmish))
+        
+
+--[[
     if IsRatedSoloShuffle() then
         if IsChatDisabled() == true and chatSettingsMemory == true then
             print(silentShuffleTitle .. ": In Shuffle - Chat was already Disabled")
@@ -91,6 +136,9 @@ function SilentShuffle:OnArenaJoin()
         SetLastMatchType("SkirmishArena")
         self:DebugLog("Last Match Type is".. lastMatchType)
     end
+
+]]
+
 end
 
 -- Function to handle arena leave
@@ -101,15 +149,10 @@ function SilentShuffle:OnArenaLeave()
         self:DebugLog("Protective conditions are not met")
         return
     end
-    if lastMatch == "SoloShuffle" then
+    if lastMatch == "Solo Shuffle" or lastMatch == "Rated Arena" or lastMatch == "Skirmish Arena" then
         setChatDisabled(chatSettingsMemory)
-        print(silentShuffleTitle .. ": Not in Shuffle - Chat restored to previous settings")
-    elseif lastMatch == "RatedArena" then
-        setChatDisabled(chatSettingsMemory)
-        print(silentShuffleTitle .. ": Not in Rated Arena - Chat restored to previous settings")
-    elseif lastMatch == "SkirmishArena" then
-        setChatDisabled(chatSettingsMemory)
-        print(silentShuffleTitle .. ": Not in Skirmish Arena - Chat restored to previous settings")
+        print(silentShuffleTitle .. ": Not in ".. lastMatch .. " - Chat restored to previous settings")
+        SetLastMatchType(nil)
     end
 end
 
