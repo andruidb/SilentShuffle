@@ -56,6 +56,11 @@ function GetLastMatchType()
     return lastMatchType
 end
 
+function delayedExecution()
+    SilentShuffle:OnArenaJoin()
+    SilentShuffle:DebugLog("Delayed Execution")
+end
+
 function SilentShuffle:ArenaJoinType(matchType)
     if IsChatDisabled() == true and chatSettingsMemory == true then
         print(silentShuffleTitle .. ": In "..matchType.." - Chat was already Disabled")
@@ -70,30 +75,30 @@ end
 function SilentShuffle:OnArenaJoin()
     local lastMatch
     self:DebugLog("Joined Arena, Checking if it's Shuffle")
-    if not (IsRatedSoloShuffle() or IsRatedArena() or IsSkirmish()) then
+    if not (C_PvP.IsRatedSoloShuffle() or C_PvP.IsRatedArena() or C_PvP.IsArena()) then
         self:DebugLog("Protecting conditions not met")
-        self:DebugLog("IsRatedArena(): " .. tostring(IsRatedArena()))
+        self:DebugLog("IsRatedArena(): " .. tostring(C_PvP.IsRatedArena()))
         self:DebugLog("self.db.profile.enableRatedArena: " .. tostring(self.db.profile.enableRatedArena))
-        self:DebugLog("IsSkirmish(): " .. tostring(IsSkirmish()))
+        self:DebugLog("IsSkirmish(): " .. tostring(C_PvP.IsArena()))
         self:DebugLog("self.db.profile.enableSkirmish: " .. tostring(self.db.profile.enableSkirmish))
-        self:DebugLog("IsSoloShuffle(): ".. tostring(IsRatedSoloShuffle()))
+        self:DebugLog("IsSoloShuffle(): ".. tostring(C_PvP.IsRatedSoloShuffle()))
         return
     end
 
-    if IsRatedSoloShuffle() then
+    if C_PvP.IsRatedSoloShuffle() then
         SetLastMatchType("Solo Shuffle")
-    elseif IsRatedArena() and self.db.profile.enableRatedArena then
+    elseif C_PvP.IsRatedArena() and self.db.profile.enableRatedArena then
         SetLastMatchType("Rated Arena")
-    elseif IsSkirmish() and self.db.profile.enableSkirmish and not IsRatedArena() then
+    elseif C_PvP.IsArena() and self.db.profile.enableSkirmish then
         SetLastMatchType("Skirmish Arena")
     end
 
     lastMatch = GetLastMatchType()
     if lastMatch == nil then
         self:DebugLog("lastMatch is NIL")
-        self:DebugLog("IsRatedArena(): " .. tostring(IsRatedArena()))
+        self:DebugLog("IsRatedArena(): " .. tostring(C_PvP.IsRatedArena()))
         self:DebugLog("self.db.profile.enableRatedArena: " .. tostring(self.db.profile.enableRatedArena))
-        self:DebugLog("IsSkirmish(): " .. tostring(IsSkirmish()))
+        self:DebugLog("IsSkirmish(): " .. tostring(C_PvP.IsArena()))
         self:DebugLog("self.db.profile.enableSkirmish: " .. tostring(self.db.profile.enableSkirmish))
         return
     else
@@ -101,9 +106,9 @@ function SilentShuffle:OnArenaJoin()
     end
 
      -- Print additional debug information
-     self:DebugLog("IsRatedArena(): " .. tostring(IsRatedArena()))
+     self:DebugLog("IsRatedArena(): " .. tostring(C_PvP.IsRatedArena()))
      self:DebugLog("self.db.profile.enableRatedArena: " .. tostring(self.db.profile.enableRatedArena))
-     self:DebugLog("IsSkirmish(): " .. tostring(IsSkirmish()))
+     self:DebugLog("IsSkirmish(): " .. tostring(C_PvP.IsArena()))
      self:DebugLog("self.db.profile.enableSkirmish: " .. tostring(self.db.profile.enableSkirmish))
         
 
@@ -145,7 +150,7 @@ end
 function SilentShuffle:OnArenaLeave()
     self:DebugLog("Left Arena, Checking arena type")
     local lastMatch = GetLastMatchType()
-    if IsRatedSoloShuffle() == true or IsRatedArena() == true or IsSkirmish() == true then
+    if C_PvP.IsRatedSoloShuffle() == true or C_PvP.IsRatedArena() == true or C_PvP.IsArena() == true then
         self:DebugLog("Protective conditions are not met")
         return
     end
@@ -268,7 +273,7 @@ function SilentShuffle:EventHandler()
     if self.db.profile.enabled then
         if currentInstanceType == "arena" then
             self:DebugLog(currentInstanceType)
-            self:OnArenaJoin()
+            C_Timer.After(3, delayedExecution)
          elseif currentInstanceType ~= "arena" and self.currentInstanceType == "arena" then
             self:DebugLog("Arena leaving")
             self:OnArenaLeave()
