@@ -16,8 +16,8 @@ local AddonVersion = C_AddOns.GetAddOnMetadata("SilentShuffle", "Version")
 local setChatDisabled = C_SocialRestrictions.SetChatDisabled
 local IsChatDisabled = C_SocialRestrictions.IsChatDisabled
 local IsRatedSoloShuffle = C_PvP.IsRatedSoloShuffle
-local IsRatedArena = C_PvP.IsRatedArena
-local IsSkirmish = C_PvP.IsArena
+--local IsRatedArena = C_PvP.IsRatedArena
+--local IsSkirmish = C_PvP.IsArena
 
 local chatSettingsMemory
 enableRatedArena = ...
@@ -75,7 +75,7 @@ end
 function SilentShuffle:OnArenaJoin()
     local lastMatch
     self:DebugLog("Joined Arena, Checking if it's Shuffle")
-    if not (C_PvP.IsRatedSoloShuffle() or C_PvP.IsRatedArena() or C_PvP.IsArena()) then
+    if not (C_PvP.IsRatedSoloShuffle() or C_PvP.IsRatedArena()) then
         self:DebugLog("Protecting conditions not met")
         self:DebugLog("IsRatedArena(): " .. tostring(C_PvP.IsRatedArena()))
         self:DebugLog("self.db.profile.enableRatedArena: " .. tostring(self.db.profile.enableRatedArena))
@@ -88,9 +88,9 @@ function SilentShuffle:OnArenaJoin()
     if C_PvP.IsRatedSoloShuffle() then
         SetLastMatchType("Solo Shuffle")
     elseif C_PvP.IsRatedArena() and self.db.profile.enableRatedArena then
-        SetLastMatchType("Rated Arena")
-    elseif C_PvP.IsArena() and self.db.profile.enableSkirmish then
-        SetLastMatchType("Skirmish Arena")
+        SetLastMatchType("Arena")
+   --[[  elseif C_PvP.IsArena() and self.db.profile.enableSkirmish then
+        SetLastMatchType("Skirmish Arena") ]]
     end
 
     lastMatch = GetLastMatchType()
@@ -150,7 +150,7 @@ end
 function SilentShuffle:OnArenaLeave()
     self:DebugLog("Left Arena, Checking arena type")
     local lastMatch = GetLastMatchType()
-    if C_PvP.IsRatedSoloShuffle() == true or C_PvP.IsRatedArena() == true or C_PvP.IsArena() == true then
+    if C_PvP.IsRatedSoloShuffle() == true or C_PvP.IsRatedArena() == true then
         self:DebugLog("Protective conditions are not met")
         return
     end
@@ -182,10 +182,6 @@ function SilentShuffle:OnInitialize()
 
     if self.db.profile.enableRatedArena == nil then
         self.db.profile.enableRatedArena = false
-    end
-
-    if self.db.profile.enableSkirmish == nil then
-        self.db.profile.enableSkirmish = false
     end
 
      chatSettingsMemory = IsChatDisabled()
@@ -237,23 +233,13 @@ function SilentShuffle:SetConfigHandler()
             },
             enableRatedArena = {
                 type = "toggle",
-                name = "Enable Rated Arena",
-                desc = "Enable or disable functionality for Rated Arena",
+                name = "Enable in Arena",
+                desc = "Enable or disable functionality for Arena",
                 get = function() return self.db.profile.enableRatedArena end,
                 set = function(_, val)
                     self.db.profile.enableRatedArena = val
                 end,
                 order = 10,  -- Adjust order as needed
-            },
-            enableSkirmish = {
-                type = "toggle",
-                name = "Enable Skirmish",
-                desc = "Enable or disable functionality for Skirmish",
-                get = function() return self.db.profile.enableSkirmish end,
-                set = function(_, val)
-                    self.db.profile.enableSkirmish = val
-                end,
-                order = 20,  -- Adjust order as needed
             },
         },
     }
