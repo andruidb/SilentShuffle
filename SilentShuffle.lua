@@ -16,8 +16,11 @@ local AddonVersion = C_AddOns.GetAddOnMetadata("SilentShuffle", "Version")
 local setChatDisabled = C_SocialRestrictions.SetChatDisabled
 local IsChatDisabled = C_SocialRestrictions.IsChatDisabled
 local IsRatedSoloShuffle = C_PvP.IsRatedSoloShuffle
+
+--@do-not-package@
 --local IsRatedArena = C_PvP.IsRatedArena
 --local IsSkirmish = C_PvP.IsArena
+--@end-do-not-package@
 
 local chatSettingsMemory
 enableRatedArena = ...
@@ -89,8 +92,10 @@ function SilentShuffle:OnArenaJoin()
         SetLastMatchType("Solo Shuffle")
     elseif C_PvP.IsRatedArena() and self.db.profile.enableRatedArena then
         SetLastMatchType("Arena")
+--@do-not-package@
    --[[  elseif C_PvP.IsArena() and self.db.profile.enableSkirmish then
         SetLastMatchType("Skirmish Arena") ]]
+--@end-do-not-package@
     end
 
     lastMatch = GetLastMatchType()
@@ -112,6 +117,7 @@ function SilentShuffle:OnArenaJoin()
      self:DebugLog("self.db.profile.enableSkirmish: " .. tostring(self.db.profile.enableSkirmish))
         
 
+--@do-not-package@
 --[[
     if IsRatedSoloShuffle() then
         if IsChatDisabled() == true and chatSettingsMemory == true then
@@ -143,6 +149,7 @@ function SilentShuffle:OnArenaJoin()
     end
 
 ]]
+--@end-do-not-package@
 
 end
 
