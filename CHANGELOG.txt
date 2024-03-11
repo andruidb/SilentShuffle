@@ -1,3 +1,9 @@
+Update on v1.0 release:
+    
+    - Resolved an issue preventing the addon consistently disabling chat in Solo Shuffle or Arena matches
+    - Resolved an issue between handling Skirmish and Rated Arena
+    - Rated Arena and Skirmish are considered both as Arena for the time being
+
 Update on v1.0.1 beta release:
 
     - Added support for Skirmish and Rated Arena
