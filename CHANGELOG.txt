@@ -1,3 +1,7 @@
+Update on v1.1 release:
+
+    - Version updated to patch 10.2.6
+
 Update on v1.0 release:
     
     - Resolved an issue preventing the addon consistently disabling chat in Solo Shuffle or Arena matches
@@ -9,6 +13,6 @@ Update on v1.0.1 beta release:
     - Added support for Skirmish and Rated Arena
     - Consolidated messages visible in the game chat frame
 
-
 Future developments:
     - Profile management
+    - Battleground Blitz

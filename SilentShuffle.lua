@@ -15,9 +15,9 @@ local AddonVersion = C_AddOns.GetAddOnMetadata("SilentShuffle", "Version")
 -- Variables for chat control
 local setChatDisabled = C_SocialRestrictions.SetChatDisabled
 local IsChatDisabled = C_SocialRestrictions.IsChatDisabled
-local IsRatedSoloShuffle = C_PvP.IsRatedSoloShuffle
-
 --@do-not-package@
+--local IsRatedSoloShuffle = C_PvP.IsRatedSoloShuffle
+
 --local IsRatedArena = C_PvP.IsRatedArena
 --local IsSkirmish = C_PvP.IsArena
 --@end-do-not-package@
