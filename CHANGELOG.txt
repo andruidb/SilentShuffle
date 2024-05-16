@@ -1,3 +1,6 @@
+Update on v1.2 release:
+    - Version updated to patch 10.2.7
+
 Update on v1.1 release:
 
     - Version updated to patch 10.2.6
