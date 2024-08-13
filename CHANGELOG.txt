@@ -1,3 +1,6 @@
+Update on v1.4 release:
+    - Fixed a bug which would prevent restoring the chat disabled setting upon reloading the game
+
 Update on v1.3 release:
     - Version updated to patch 11.0.2
     - Working on a bugfixing and updating the addon to implement Battleground Blitz

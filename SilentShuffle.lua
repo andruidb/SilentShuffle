@@ -157,12 +157,13 @@ end
 function SilentShuffle:OnArenaLeave()
     self:DebugLog("Left Arena, Checking arena type")
     local lastMatch = GetLastMatchType()
+    self:DebugLog("Last Match type was " .. lastMatch)
     if C_PvP.IsRatedSoloShuffle() == true or C_PvP.IsRatedArena() == true then
         self:DebugLog("Protective conditions are not met")
         return
     end
-    if lastMatch == "Solo Shuffle" or lastMatch == "Rated Arena" or lastMatch == "Skirmish Arena" then
-        setChatDisabled(chatSettingsMemory)
+    if lastMatch == "Solo Shuffle" or lastMatch == "Rated Arena" or lastMatch == "Arena" then
+        setChatDisabled(false)
         print(silentShuffleTitle .. ": Not in ".. lastMatch .. " - Chat restored to previous settings")
         SetLastMatchType(nil)
     end
@@ -180,7 +181,12 @@ function SilentShuffle:OnInitialize()
     self:SetConfigHandler()
 
     -- Set up saved variables
-    self.db = LibStub("AceDB-3.0"):New("SilentShuffleDB", { profile = { enabled = true } }, true)
+    self.db = LibStub("AceDB-3.0"):New("SilentShuffleDB", {
+        profile = { 
+            enabled = true,
+            chatSettingsMemory = IsChatDisabled()
+         } 
+        }, true)
 
     -- Check if saved variables exist, if not, set default values
     if self.db.profile.enabled == nil then
@@ -191,7 +197,9 @@ function SilentShuffle:OnInitialize()
         self.db.profile.enableRatedArena = false
     end
 
-     chatSettingsMemory = IsChatDisabled()
+    if self.db.profile.chatSettingsMemory ~= nil then
+        setChatDisabled(self.db.profile.chatSettingsMemory)
+    end
 
     self:DebugLog("Initialized")
 
@@ -280,5 +288,6 @@ end
 
 -- Logout handler function to restore the value of Chat Disabled obtained during previous login/reload
 function SilentShuffle:LogoutHandler()
-    setChatDisabled(chatSettingsMemory)
+    self.db.profile.chatSettingsMemory = IsChatDisabled()
+    setChatDisabled(self.db.profile.chatSettingsMemory)
 end
