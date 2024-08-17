@@ -49,3 +49,6 @@ luac.out
 
 # Azure Pipeline
 pipeline.yml
+
+# Old folders
+Libs_OLD/
