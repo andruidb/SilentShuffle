@@ -1,52 +1,37 @@
-Update on v1.4.1 release:
+# Update on v1.4.1 release:
+
+- Updated dependencies
+
+# Update on v1.4 release:
+
+- Fixed a bug which would prevent restoring the chat disabled setting upon reloading the game
+
+# Update on v1.3 release:
+
+- Version updated to patch 11.0.2
+- Working on a bugfixing and updating the addon to implement Battleground Blitz
+
+# Update on v1.2 release:
+
+- Version updated to patch 10.2.7
+
+# Update on v1.1 release:
+
+- Version updated to patch 10.2.6
+
+# Update on v1.0 release:
+
+- Resolved an issue preventing the addon consistently disabling chat in Solo Shuffle or Arena matches
+- Resolved an issue between handling Skirmish and Rated Arena
+- Rated Arena and Skirmish are considered both as Arena for the time being
 
 
-    - Updated dependencies
+# Update on v1.0.1 beta release:
 
+- Added support for Skirmish and Rated Arena
+- Consolidated messages visible in the game chat frame
 
-Update on v1.4 release:
+# Future developments:
 
-
-    - Fixed a bug which would prevent restoring the chat disabled setting upon reloading the game
-
-
-Update on v1.3 release:
-
-
-    - Version updated to patch 11.0.2
-    - Working on a bugfixing and updating the addon to implement Battleground Blitz
-
-
-Update on v1.2 release:
-
-
-    - Version updated to patch 10.2.7
-
-
-Update on v1.1 release:
-
-
-    - Version updated to patch 10.2.6
-
-
-Update on v1.0 release:
-
-    
-    - Resolved an issue preventing the addon consistently disabling chat in Solo Shuffle or Arena matches
-    - Resolved an issue between handling Skirmish and Rated Arena
-    - Rated Arena and Skirmish are considered both as Arena for the time being
-
-
-Update on v1.0.1 beta release:
-
-
-    - Added support for Skirmish and Rated Arena
-    - Consolidated messages visible in the game chat frame
-
-
-Future developments:
-
-
-    - Profile management
-    - Battleground Blitz
-    
+- Profile management
+- Battleground Blitz

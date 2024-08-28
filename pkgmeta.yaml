@@ -1,4 +1,5 @@
 manual-changelog:
     filename: CHANGELOG.txt
+    markup-type: markdown
 manual-description:
     filename: README.md
