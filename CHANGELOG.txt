@@ -1,3 +1,8 @@
+# Update on v1.4.2 release:
+
+- Updated TOC to indicate correct version
+- Updated issue handling for the project, now is available on GitHub
+
 # Update on v1.4.1 release:
 
 - Updated dependencies
