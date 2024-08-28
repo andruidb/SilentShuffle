@@ -1,2 +1,4 @@
 manual-changelog:
     filename: CHANGELOG.txt
+manual-description:
+    filename: README.md
