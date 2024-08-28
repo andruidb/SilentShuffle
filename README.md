@@ -4,7 +4,7 @@ Silent Shuffle conveniently mutes chat in Solo Shuffle matches, and avoid gettin
 
 # Features
 
-        The addon currently works in Solo Shuffle and Arena matches, which you can enable/disable from the GUI in the Options->AddOns->Silent Shuffle tab.
+    The addon currently works in Solo Shuffle and Arena matches, which you can enable/disable from the GUI in the Options->AddOns->Silent Shuffle tab.
     
     It also remembers your original chat settings - for example if you had your chat disabled manually in the previous session or before reloading - and restores it after the match.
 
