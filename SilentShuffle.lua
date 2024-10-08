@@ -65,7 +65,7 @@ function delayedExecution()
 end
 
 function SilentShuffle:ArenaJoinType(matchType)
-    if IsChatDisabled() == true and chatSettingsMemory == true then
+    if IsChatDisabled() == true and self.db.profile.chatSettingsMemory == true then
         print(silentShuffleTitle .. ": In "..matchType.." - Chat was already Disabled")
     else
         setChatDisabled(true)
@@ -92,6 +92,10 @@ function SilentShuffle:OnArenaJoin()
         SetLastMatchType("Solo Shuffle")
     elseif C_PvP.IsRatedArena() and self.db.profile.enableRatedArena then
         SetLastMatchType("Arena")
+    elseif C_PvP.IsRatedArena() and not self.db.profile.enableRatedArena then 
+        SetLastMatchType("Arena")
+        self:DebugLog("No action taken")
+        return
 --@do-not-package@
    --[[  elseif C_PvP.IsArena() and self.db.profile.enableSkirmish then
         SetLastMatchType("Skirmish Arena") ]]

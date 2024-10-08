@@ -1,3 +1,7 @@
+# Update on v1.4.3 release:
+
+- Fixed a bug which would prevent remembering chat settings after reload in world/arena
+
 # Update on v1.4.2 release:
 
 - Updated TOC to indicate correct version
