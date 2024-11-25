@@ -1,3 +1,7 @@
+# Update on v1.4.4 release:
+
+- Updated for Patch 11.0.7
+
 # Update on v1.4.3 release:
 
 - Fixed a bug which would prevent remembering chat settings after reload in world/arena
