@@ -16,10 +16,12 @@ While the chat is muted, you won't be able to see any chat messages including gu
 - Enable/Disable addon
 - Enable/Disable Arena (Rated and Skirmish together)
 - Enable/Disable debugging
+- Perform API test
 
 # Commands
 
 - /ssconfig
+- /sstest
 
 # Issue Tracking
 

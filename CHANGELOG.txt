@@ -1,3 +1,14 @@
+# Update on v1.5.0 release:
+
+- Added an API test function to test the API connections in the following instances: 
+    - Solo Shuffle
+    - Rated Arena
+    - Arena Skirmish
+    - Battleground
+    - Battleground Blitz
+- Added a new command /sstest to invoke the API test
+- Added a GUI button
+
 # Update on v1.4.4 release:
 
 - Updated for Patch 11.0.7
