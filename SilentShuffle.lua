@@ -178,20 +178,47 @@ function SilentShuffle:OpenConfig()
     AceConfigDialog:Open("SilentShuffle")
 end
 
+-- Function to test C_PvP API calls with temporary debug mode
+function SilentShuffle:TestPvPAPICalls()
+    -- Store current debug state
+    local originalDebugState = self.db.profile.debug
+
+    -- Enable debug mode
+    self.db.profile.debug = true
+    self:DebugLog("Testing C_PvP API Calls... (Debug mode temporarily enabled)")
+
+    local isRatedSoloShuffle_test = C_PvP.IsRatedSoloShuffle()
+    local isRatedArena_test = C_PvP.IsRatedArena()
+    local isArena_test = C_PvP.IsArena()
+    local isBattleground_test = C_PvP.IsBattleground()
+    local isRatedBattleground_test = C_PvP.IsRatedBattleground()
+
+    self:DebugLog("C_PvP.IsRatedSoloShuffle(): " .. tostring(isRatedSoloShuffle_test))
+    self:DebugLog("C_PvP.IsRatedArena(): " .. tostring(isRatedArena_test))
+    self:DebugLog("C_PvP.IsArena(): " .. tostring(isArena_test))
+    self:DebugLog("C_PvP.IsBattleground(): " .. tostring(isBattleground_test))
+    self:DebugLog("C_PvP.IsRatedBattleground(): " .. tostring(isRatedBattleground_test))
+
+    -- Restore original debug state
+    self.db.profile.debug = originalDebugState
+    self:DebugLog("Test completed. Restoring previous debug state: " .. tostring(originalDebugState))
+end
+
 -- Function to initialize the addon
 function SilentShuffle:OnInitialize()
-    -- Set up AceConfig
     self:RegisterChatCommand("ssconfig", "OpenConfig")
+    self:RegisterChatCommand("sstest", "TestPvPAPICalls") -- New test command
     self:SetConfigHandler()
-
-    -- Set up saved variables
+    
+    -- Initialize saved variables
     self.db = LibStub("AceDB-3.0"):New("SilentShuffleDB", {
         profile = { 
             enabled = true,
-            chatSettingsMemory = IsChatDisabled()
+            chatSettingsMemory = IsChatDisabled(),
+            debug = false  -- Default debug mode off
          } 
         }, true)
-
+    
     -- Check if saved variables exist, if not, set default values
     if self.db.profile.enabled == nil then
         self.db.profile.enabled = true
@@ -248,7 +275,7 @@ function SilentShuffle:SetConfigHandler()
                 set = function(_, val)
                     self.db.profile.debug = val
                 end,
-                order = 30,  -- Adjust order as needed
+                order = 30,
             },
             enableRatedArena = {
                 type = "toggle",
@@ -258,7 +285,14 @@ function SilentShuffle:SetConfigHandler()
                 set = function(_, val)
                     self.db.profile.enableRatedArena = val
                 end,
-                order = 10,  -- Adjust order as needed
+                order = 10,
+            },
+            testAPICalls = { 
+                type = "execute",
+                name = "Test PvP API",
+                desc = "Run the PvP API test function",
+                func = function() SilentShuffle:TestPvPAPICalls() end,
+                order = 40,
             },
         },
     }
