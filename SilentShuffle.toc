@@ -1,8 +1,8 @@
-## Interface: 110100
+## Interface: 110105
 ## Title: |cff00ff88Silent Shuffle|r
 ## Notes: Turns off chat when entering Solo Shuffle
 ## IconTexture: 135975
-## Version: 1.5.0
+## Version: 1.5.1
 ## Author: Andruid
 ## SavedVariables: SilentShuffleDB
 ## X-Curse-Project-ID: 972185
