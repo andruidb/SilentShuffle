@@ -1,3 +1,7 @@
+# Update on v1.5.3 release:
+
+- Updated for Patch 11.2
+
 # Update on v1.5.2 release:
 
 - Updated for Patch 11.1.7
