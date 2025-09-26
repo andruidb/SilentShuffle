@@ -15,17 +15,20 @@ local AddonVersion = C_AddOns.GetAddOnMetadata("SilentShuffle", "Version")
 -- Variables for chat control
 local setChatDisabled = C_SocialRestrictions.SetChatDisabled
 local IsChatDisabled = C_SocialRestrictions.IsChatDisabled
---@do-not-package@
---local IsRatedSoloShuffle = C_PvP.IsRatedSoloShuffle
-
---local IsRatedArena = C_PvP.IsRatedArena
---local IsSkirmish = C_PvP.IsArena
---@end-do-not-package@
 
 local chatSettingsMemory
 enableRatedArena = ...
 enableSkirmish = ...
 
+local defaults = {
+    profile = {
+        enabled            = true,
+        chatSettingsMemory = IsChatDisabled(),
+        debug              = false,
+        enableRatedArena   = false,
+        enableSkirmish     = false,
+    }
+}
 
 -- Variables for instance checking
 local IsInInstance = IsInInstance
@@ -96,10 +99,7 @@ function SilentShuffle:OnArenaJoin()
         SetLastMatchType("Arena")
         self:DebugLog("No action taken")
         return
---@do-not-package@
-   --[[  elseif C_PvP.IsArena() and self.db.profile.enableSkirmish then
-        SetLastMatchType("Skirmish Arena") ]]
---@end-do-not-package@
+
     end
 
     lastMatch = GetLastMatchType()
@@ -120,40 +120,6 @@ function SilentShuffle:OnArenaJoin()
      self:DebugLog("IsSkirmish(): " .. tostring(C_PvP.IsArena()))
      self:DebugLog("self.db.profile.enableSkirmish: " .. tostring(self.db.profile.enableSkirmish))
         
-
---@do-not-package@
---[[
-    if IsRatedSoloShuffle() then
-        if IsChatDisabled() == true and chatSettingsMemory == true then
-            print(silentShuffleTitle .. ": In Shuffle - Chat was already Disabled")
-        else
-            setChatDisabled(true)
-            print(silentShuffleTitle .. ": In Shuffle - Chat Disabled")
-        end
-        SetLastMatchType("SoloShuffle")
-        self:DebugLog("Last Match Type is".. lastMatchType)
-    elseif IsRatedArena() and self.db.profile.enableRatedArena then
-        if IsChatDisabled() == true and chatSettingsMemory == true then
-            print(silentShuffleTitle .. ": In Rated Arena - Chat was already Disabled")
-        else
-            setChatDisabled(true)
-            print(silentShuffleTitle .. ": In Rated Arena - Chat Disabled")
-        end
-        SetLastMatchType("RatedArena")
-        self:DebugLog("Last Match Type is".. lastMatchType)
-    elseif IsSkirmish() and self.db.profile.enableSkirmish then
-        if IsChatDisabled() == true and chatSettingsMemory == true then
-            print(silentShuffleTitle .. ": In Skirmish Arena - Chat was already Disabled")
-        else
-            setChatDisabled(true)
-            print(silentShuffleTitle .. ": In Skirmish Arena - Chat Disabled")
-        end
-        SetLastMatchType("SkirmishArena")
-        self:DebugLog("Last Match Type is".. lastMatchType)
-    end
-
-]]
---@end-do-not-package@
 
 end
 
@@ -176,6 +142,18 @@ end
 -- Function to open the configuration GUI
 function SilentShuffle:OpenConfig()
     AceConfigDialog:Open("SilentShuffle")
+end
+
+-- Refresh runtime state from profile (called on profile change)
+function SilentShuffle:RefreshFromProfile()
+    if not self.db or not self.db.profile then return end
+    -- Ensure chatSettingsMemory exists in profile; if not seed it now
+    if self.db.profile.chatSettingsMemory == nil then
+        self.db.profile.chatSettingsMemory = IsChatDisabled()
+    end
+    -- restore chat memory if desired at login (you already do this in OnInitialize)
+    -- chatSettingsMemory runtime var is also kept for convenience:
+    chatSettingsMemory = self.db.profile.chatSettingsMemory
 end
 
 -- Function to test C_PvP API calls with temporary debug mode
@@ -206,31 +184,22 @@ end
 
 -- Function to initialize the addon
 function SilentShuffle:OnInitialize()
+-- Initialize saved variables
+    self.db = LibStub("AceDB-3.0"):New("SilentShuffleDB", defaults, true)
     self:RegisterChatCommand("ssconfig", "OpenConfig")
     self:RegisterChatCommand("sstest", "TestPvPAPICalls") -- New test command
     self:SetConfigHandler()
-    
-    -- Initialize saved variables
-    self.db = LibStub("AceDB-3.0"):New("SilentShuffleDB", {
-        profile = { 
-            enabled = true,
-            chatSettingsMemory = IsChatDisabled(),
-            debug = false  -- Default debug mode off
-         } 
-        }, true)
-    
-    -- Check if saved variables exist, if not, set default values
-    if self.db.profile.enabled == nil then
-        self.db.profile.enabled = true
-    end
-
-    if self.db.profile.enableRatedArena == nil then
-        self.db.profile.enableRatedArena = false
-    end
 
     if self.db.profile.chatSettingsMemory ~= nil then
         setChatDisabled(self.db.profile.chatSettingsMemory)
     end
+
+    -- Register DB callbacks so profile changes are reflected immediately
+    self.db.RegisterCallback(self, "OnProfileChanged", "RefreshFromProfile")
+    self.db.RegisterCallback(self, "OnProfileCopied", "RefreshFromProfile")
+    self.db.RegisterCallback(self, "OnProfileReset", "RefreshFromProfile")
+
+    self:RefreshFromProfile() -- apply profile to runtime vars
 
     self:DebugLog("Initialized")
 
@@ -248,6 +217,7 @@ end
 -- Set up the configuration handler for AceConfig
 -- Function to set up the configuration handler for AceConfig
 function SilentShuffle:SetConfigHandler()
+    local profileOptions = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.db)
     local options = {
         type = "group",
         inline = false,
@@ -296,9 +266,11 @@ function SilentShuffle:SetConfigHandler()
             },
         },
     }
-
+    --options.args.profile = profileOptions
     AceConfig:RegisterOptionsTable("SilentShuffle", options)
+    AceConfig:RegisterOptionsTable("SilentShuffle_Profiles", profileOptions)
     AceConfigDialog:AddToBlizOptions("SilentShuffle", "Silent Shuffle")
+    AceConfigDialog:AddToBlizOptions("SilentShuffle_Profiles", "Profiles", "Silent Shuffle")
 end
 
 -- Event handler function

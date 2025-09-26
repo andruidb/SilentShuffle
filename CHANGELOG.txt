@@ -1,3 +1,7 @@
+# Update on v1.6.0 release:
+
+- Added Ace3 profile management.
+
 # Update on v1.5.4 release:
 
 - Updated for Patch 11.2.5
