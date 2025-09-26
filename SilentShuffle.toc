@@ -2,7 +2,7 @@
 ## Title: |cff00ff88Silent Shuffle|r
 ## Notes: Turns off chat when entering Solo Shuffle
 ## IconTexture: 135975
-## Version: 1.5.4
+## Version: 1.6.0
 ## Author: Andruid
 ## SavedVariables: SilentShuffleDB
 ## X-Curse-Project-ID: 972185
@@ -19,3 +19,4 @@ Libs\AceGUI-3.0\AceGUI-3.0.lua
 Libs\AceConfig-3.0\AceConfig-3.0.lua
 Libs\AceConfigDialog-3.0\AceConfigDialog-3.0.lua
 Libs\AceDB-3.0\AceDB-3.0.lua
+Libs\AceDBOptions-3.0\AceDBOptions-3.0.lua
