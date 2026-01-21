@@ -1,3 +1,7 @@
+# Update on v1.6.1 release:
+
+- Updated for Midnight Patch 12.0.0
+
 # Update on v1.6.0 release:
 
 - Added Ace3 profile management.
