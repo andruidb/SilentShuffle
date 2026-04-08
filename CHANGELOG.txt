@@ -1,3 +1,7 @@
+# Update on v1.6.4 release:
+
+- Fixed a faulty TOC entry which would prevent the addon from loading in Patch 12.0.5
+
 # Update on v1.6.3 release:
 
 - Updated for Patch 12.0.5
