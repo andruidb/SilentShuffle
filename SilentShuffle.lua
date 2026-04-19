@@ -2,11 +2,12 @@
 local AceAddon = LibStub("AceAddon-3.0")
 local AceConsole = LibStub("AceConsole-3.0")
 local AceEvent = LibStub("AceEvent-3.0")
+local AceHook = LibStub("AceHook-3.0")
 local AceConfigDialog = LibStub("AceConfigDialog-3.0")
 local AceConfig = LibStub("AceConfig-3.0")
 
 -- Create a new AceAddon instance
-local SilentShuffle = AceAddon:NewAddon("SilentShuffle", "AceConsole-3.0", "AceEvent-3.0")
+local SilentShuffle = AceAddon:NewAddon("SilentShuffle", "AceConsole-3.0", "AceEvent-3.0", "AceHook-3.0")
 
 -- Define addon metadata
 local silentShuffleTitle = "|cff00ff88Silent Shuffle|r"
@@ -27,6 +28,8 @@ local defaults = {
         debug              = false,
         enableRatedArena   = false,
         enableSkirmish     = false,
+        badWords           = "badword1,badword2,badword3",
+        enableOutgoingFilter = false,
     }
 }
 
@@ -212,6 +215,10 @@ function SilentShuffle:OnInitialize()
     -- Register events
     self:RegisterEvent("ZONE_CHANGED_NEW_AREA", "EventHandler")
     self:RegisterEvent("PLAYER_LOGOUT", "LogoutHandler")
+
+    if self.db.profile.enableOutgoingFilter then
+        self:HookSendChatMessage()
+    end
 end
 
 -- Set up the configuration handler for AceConfig
@@ -257,7 +264,42 @@ function SilentShuffle:SetConfigHandler()
                 end,
                 order = 10,
             },
-            testAPICalls = { 
+            enableSkirmish = {
+                type = "toggle",
+                name = "Enable in Skirmish",
+                desc = "Enable or disable functionality for Skirmish",
+                get = function() return self.db.profile.enableSkirmish end,
+                set = function(_, val)
+                    self.db.profile.enableSkirmish = val
+                end,
+                order = 20,
+            },
+            enableOutgoingFilter = {
+                type = "toggle",
+                name = "Enable Outgoing Filter",
+                desc = "Prevent sending messages with bad words and show warning",
+                get = function() return self.db.profile.enableOutgoingFilter end,
+                set = function(_, val)
+                    self.db.profile.enableOutgoingFilter = val
+                    if val then
+                        self:HookSendChatMessage()
+                    else
+                        self:UnhookSendChatMessage()
+                    end
+                end,
+                order = 56,
+            },
+            badWords = {
+                type = "input",
+                name = "Bad Words List",
+                desc = "Comma or newline-separated list of bad words to filter",
+                get = function() return self.db.profile.badWords end,
+                set = function(_, val) self.db.profile.badWords = val end,
+                multiline = true,
+                width = "full",
+                order = 51,
+            },
+            testAPICalls = {
                 type = "execute",
                 name = "Test PvP API",
                 desc = "Run the PvP API test function",
@@ -300,4 +342,57 @@ end
 function SilentShuffle:LogoutHandler()
     self.db.profile.chatSettingsMemory = IsChatDisabled()
     setChatDisabled(self.db.profile.chatSettingsMemory)
+end
+
+-- Function to filter bad words in a message
+function SilentShuffle:FilterMessage(message)
+    local badWords = {}
+    for word in string.gmatch(self.db.profile.badWords, '([^,\n]+)') do
+        table.insert(badWords, string.lower(string.trim(word)))
+    end
+    local lowerMessage = string.lower(message)
+    local filtered = message
+    for _, badWord in ipairs(badWords) do
+        if string.find(lowerMessage, badWord, 1, true) then
+            -- Create case-insensitive pattern for replacement
+            local pattern = badWord:gsub("(%a)", function(c) return "[" .. c:upper() .. c:lower() .. "]" end)
+            filtered = string.gsub(filtered, pattern, "***")
+        end
+    end
+    return filtered
+end
+
+-- Function to hook the chat edit box for outgoing filter
+function SilentShuffle:HookSendChatMessage()
+    if not self.editBoxHooked then
+        local editBox = ChatFrame1EditBox
+        self.originalOnEnterPressed = editBox:GetScript("OnEnterPressed")
+        editBox:SetScript("OnEnterPressed", function(widget)
+            local message = editBox:GetText()
+            if message and self.db.profile.enableOutgoingFilter then
+                local filtered = self:FilterMessage(message)
+                if filtered ~= message then
+                    print(silentShuffleTitle .. ": Message contains offensive words and was not sent.")
+                    editBox:SetText("")
+                    editBox:ClearFocus()
+                    return
+                end
+            end
+            -- Clear the edit box and defer the original handler to avoid protected function errors
+            editBox:SetText("")
+            C_Timer.After(0, function()
+                self.originalOnEnterPressed(widget)
+            end)
+        end)
+        self.editBoxHooked = true
+    end
+end
+
+-- Function to unhook the chat edit box
+function SilentShuffle:UnhookSendChatMessage()
+    if self.editBoxHooked and self.originalOnEnterPressed then
+        ChatFrame1EditBox:SetScript("OnEnterPressed", self.originalOnEnterPressed)
+        self.editBoxHooked = false
+        self.originalOnEnterPressed = nil
+    end
 end
