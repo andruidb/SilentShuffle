@@ -365,34 +365,43 @@ end
 -- Function to hook the chat edit box for outgoing filter
 function SilentShuffle:HookSendChatMessage()
     if not self.editBoxHooked then
-        local editBox = ChatFrame1EditBox
-        self.originalOnEnterPressed = editBox:GetScript("OnEnterPressed")
-        editBox:SetScript("OnEnterPressed", function(widget)
-            local message = editBox:GetText()
-            if message and self.db.profile.enableOutgoingFilter then
-                local filtered = self:FilterMessage(message)
-                if filtered ~= message then
-                    print(silentShuffleTitle .. ": Message contains offensive words and was not sent.")
-                    editBox:SetText("")
-                    editBox:ClearFocus()
-                    return
-                end
+        self.originalOnEnterPressed = self.originalOnEnterPressed or {}
+        for i = 1, NUM_CHAT_WINDOWS do
+            local frame = _G["ChatFrame" .. i]
+            if frame and frame.editBox then
+                local editBox = frame.editBox
+                self.originalOnEnterPressed[editBox] = editBox:GetScript("OnEnterPressed")
+                editBox:SetScript("OnEnterPressed", function(widget)
+                    local message = widget:GetText()
+                    if self.db.profile.enableOutgoingFilter and message then
+                        local filtered = self:FilterMessage(message)
+                        if filtered ~= message then
+                            print(silentShuffleTitle .. ": Message contains offensive words and was not sent.")
+                            widget:SetText("")
+                            widget:ClearFocus()
+                            return
+                        end
+                    end
+                    -- Call the original handler directly in the proper context
+                    return self.originalOnEnterPressed[widget](widget)
+                end)
             end
-            -- Clear the edit box and defer the original handler to avoid protected function errors
-            editBox:SetText("")
-            C_Timer.After(0, function()
-                self.originalOnEnterPressed(widget)
-            end)
-        end)
+        end
         self.editBoxHooked = true
     end
 end
 
 -- Function to unhook the chat edit box
 function SilentShuffle:UnhookSendChatMessage()
-    if self.editBoxHooked and self.originalOnEnterPressed then
-        ChatFrame1EditBox:SetScript("OnEnterPressed", self.originalOnEnterPressed)
-        self.editBoxHooked = false
+    if self.editBoxHooked then
+        for i = 1, NUM_CHAT_WINDOWS do
+            local frame = _G["ChatFrame" .. i]
+            if frame and frame.editBox and self.originalOnEnterPressed[frame.editBox] then
+                frame.editBox:SetScript("OnEnterPressed", self.originalOnEnterPressed[frame.editBox])
+            end
+        end
         self.originalOnEnterPressed = nil
+        self.editBoxHooked = false
     end
 end
+
